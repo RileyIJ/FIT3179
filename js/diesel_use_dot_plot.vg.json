@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "config": {"view": {"stroke": ""}},
+  "title": "7 oil tankers worth of diesel are used in australian Agriculture Every year!",
+  "background": "#b2cb91",
+  "width": 200,
+  "height": 20,
+  "data": {
+    "values": [
+      {"row": "1", "image": "ship"},
+      {"row": "1", "image": "ship"},
+      {"row": "1", "image": "ship"},
+      {"row": "2", "image": "ship"},
+      {"row": "2", "image": "ship"},
+      {"row": "3", "image": "spacer"},
+      {"row": "2", "image": "ship"},
+      {"row": "3", "image": "ship"},
+      {"row": "3", "image": "ship"}
+    ]
+  },
+  "transform": [
+    {
+      "calculate": "{'ship': '🚢', 'spacer': ' '}[datum.image]",
+      "as": "emoji"
+    },
+    {"window": [{"op": "rank", "as": "rank"}], "groupby": ["row"]}
+  ],
+  "mark": {"type": "text", "baseline": "middle"},
+  "encoding": {
+    "x": {"field": "rank", "type": "ordinal", "axis": null},
+    "y": {"field": "animal", "type": "nominal", "axis": null, "sort": null},
+    "row": {"field": "row", "header": {"title": ""}},
+    "text": {"field": "emoji", "type": "nominal"},
+    "size": {"value": 30}
+  }
+}

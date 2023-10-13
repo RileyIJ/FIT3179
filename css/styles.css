@@ -1,0 +1,38 @@
+#stacked_bar_chart {
+	top:100px;
+	bottom: 100px; 
+	left: 100px;
+	right: 100px;
+	/*height: 1000px;
+	width: 800px;*/
+}
+
+#segment_box {
+	background-color: #b2cb91;
+	width: 600px;
+	border: 2px solid rgb(9, 10, 9);
+	padding: 50px;
+	margin: 10px auto;
+	border-radius: 10px;
+}
+
+#title_container {
+	background-color: #b2cb91;
+	border: 2px solid rgb(9, 10, 9);
+	width: 600px;
+	padding: 30px;
+	margin: 10px auto;
+	border-radius: 10px;
+}
+
+h1 {
+	color: blue;
+}
+
+
+.flex-parent {
+	display: flex;
+  }
+  .flex-child {
+	flex: 1;
+  }
