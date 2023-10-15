@@ -1,0 +1,152 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 750,
+    "height": 400,
+    "title": {
+        "text": ["Australia's Global Agriculture Product Export Market"],
+        "align": "center",
+        "font": "Tahoma",
+        "fontSize": 17
+      },
+    "projection": {"type": "equalEarth"},
+    "background": null,
+    "config": {"view": {"stroke": "black"}},
+    "params": [
+        {
+        "name": "country_selection",
+        "bind": {
+            "input": "select",
+            "options": [
+            null,
+            "Bahrain",
+            "Canada",
+            "China",
+            "Commonwealth of Independent States (CIS)",
+            "European Union 28 (EU)",
+            "Hong Kong",
+            "Indonesia",
+            "Japan",
+            "Jordan",
+            "Korea Republic of",
+            "Kuwait",
+            "Malaysia",
+            "Middle East",
+            "New Zealand",
+            "Other Middle East",
+            "Papua New Guinea",
+            "Philippines",
+            "Qatar",
+            "Saudi Arabia",
+            "Singapore",
+            "Taiwan",
+            "Thailand",
+            "United Arab Emirates",
+            "United Kingdom",
+            "United States of America",
+            "Vietnam"
+            ],
+            "labels":[
+            "Show All",
+            "Bahrain",
+            "Canada",
+            "China",
+            "Commonwealth of Independent States (CIS)",
+            "European Union 28 (EU)",
+            "Hong Kong",
+            "Indonesia",
+            "Japan",
+            "Jordan",
+            "Republic of Korea ",
+            "Kuwait",
+            "Malaysia",
+            "Middle East",
+            "New Zealand",
+            "Other Middle East",
+            "Papua New Guinea",
+            "Philippines",
+            "Qatar",
+            "Saudi Arabia",
+            "Singapore",
+            "Taiwan",
+            "Thailand",
+            "United Arab Emirates",
+            "United Kingdom",
+            "United States of America",
+            "Vietnam"
+            ],
+            "name": "Country Selection: "
+            }
+        },
+        {
+            "name": "product_selection",
+            "bind": {
+                "input": "select",
+                "options": [
+                null,
+                "Beef & Veal",
+                "Lamb",
+                "Mutton"
+                ],
+                "labels":[
+                "Show All",
+                "Beef & Veal",
+                "Lamb",
+                "Mutton"
+                ],
+                "name": "Product Selection: "
+                }
+            }
+    ],        
+    "layer": [
+        {
+        "data": {
+            "url": "data/map_topo.json",
+            "format": {"type": "topojson", "feature": "ne_50m_admin_0_countries"}
+            },
+        "mark": {"type": "geoshape", "fill": "darkgrey", "stroke":
+        "black"}
+        },
+    {
+        "data": { "url": "data/export_data.csv"},
+        "mark": {
+            "type": "circle",
+            "opacity": 0.7
+        },
+        "transform": [
+            {
+                "lookup": "Country",
+                "from":{
+                    "data": {"url": "data/country_coordinates.csv"},
+                    "key": "Country",
+                    "fields": ["Latitude", "Longitude"]
+                }
+            },
+            {"filter": "country_selection == null || datum.Country == country_selection"},
+            {"filter": "product_selection == null || datum.Product == product_selection"}
+        ],
+
+        "encoding": {
+        "longitude": {"field": "Longitude", "type":"quantitative"},
+        "latitude": {"field": "Latitude", "type":"quantitative"},
+        "size": {
+            "field": "Value($m)",
+            "type": "quantitative",
+            "title": "Export in Millions of $",
+            "scale": {"type": "quantile"},
+            "aggregate": "sum"
+        },
+        "color": {
+            "field": "Product",
+            "type": "nominal",
+            "title": "Meat Product"
+        },
+        "tooltip": [
+            {"field": "Country", "type": "nominal"},
+            {"field": "Value($m)", "type": "quantitative", "title": "Value of Australian Exports to"},
+            {"field": "Product", "type": "nominal", "title": "Meat Product"}
+        ]
+        }        
+        }
+    ]
+    }
+    

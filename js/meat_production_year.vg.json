@@ -1,0 +1,74 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/meat_production.csv"},
+  "transform": [{"filter": "datum.Year==selecta"}],
+  "background": null,
+  "title": {
+    "text": ["Production Volume of", "Australian Agriculture (1979-2021)"],
+    "align": "center",
+    "font": "Tahoma",
+    "fontSize": 17
+  },
+  "params": [
+    {
+      "name": "selecta",
+      "value": [2021],
+      "bind": {
+        "input": "range",
+        "min": 1979,
+        "max": 2021,
+        "step": 1,
+        "name": "Select year:"
+      }
+    },
+    {
+      "name": "highlight",
+      "select": {"type": "point", "on": "pointerover"}
+    },
+    {"name": "select", "select": "point"}
+  ],
+  "height": 300,
+  "width": 250,
+  "mark": {
+    "type": "bar",
+    "fill": "#4C78A8",
+    "stroke": "black",
+    "cursor": "pointer"
+  },
+  "encoding": {
+    "x": {
+      "field": "Animal",
+      "type": "nominal",
+      "title": "Meat"
+    },
+    "y": {
+      "field": "Quantity(kt)", 
+      "type": "quantitative",
+      "title": "Quantity Produced (kt)",
+      "scale": {"domain": [0, 2700]}
+    },
+    "tooltip": {
+      "field": "Quantity(kt)", 
+      "type": "quantitative"
+    },
+    "fillOpacity": {
+      "condition": {"param": "select", "value": 1},
+      "value": 0.3
+    },
+    "strokeWidth": {
+      "condition": [
+        {
+          "param": "select",
+          "empty": false,
+          "value": 2
+        },
+        {
+          "param": "highlight",
+          "empty": false,
+          "value": 1
+        }
+      ],
+      "value": 0
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "A simple donut chart with embedded data.",
+    "width": 300,
+    "height": 200,
+    "title": {
+      "text": ["24% of water extractions in", "2020-21 were used in agriculture"],
+      "align": "center",
+      "font": "Tahoma",
+      "fontSize": 17
+    },
+    "config": {"view": {"stroke": "transparent"}},
+    "background": null,
+    "data": {
+      "values": [
+        {"category": "Agriculture", "value": 24, "color": "blue"},
+        {"category": "other", "value": 76, "color": "grey"}
+      ]
+    },
+    "params": [
+      {
+        "name": "highlight",
+        "select": {"type": "point", "on": "pointerover"}
+      },
+      {"name": "select", "select": "point"}
+    ],
+    "mark": {"type": "arc", "innerRadius": 50},
+    "encoding": {
+      "theta": {"field": "value", "type": "quantitative"},
+      "color": {"field": "category", "type": "nominal", "scale": {"range": ["blue", "grey"]}, "legend":null},
+      "tooltip": [
+        {"field": "category", "type": "nominal"},
+        {"field": "value", "type": "quantitative", "title": "Percentage of water used"}
+    ],
+    "fillOpacity": {
+      "condition": {"param": "select", "value": 1},
+      "value": 0.3
+    },
+    "strokeWidth": {
+      "condition": [
+        {
+          "param": "select",
+          "empty": false,
+          "value": 2
+        },
+        {
+          "param": "highlight",
+          "empty": false,
+          "value": 1
+        }
+      ],
+      "value": 0
+    }
+    }
+}
+
